@@ -31,6 +31,10 @@ exports.up = (pgm) => {
       type: 'TEXT',
       notNull: false,
     },
+    is_active: {
+      type: 'BOOLEAN',
+      notNull: true,
+    },
     latitude: {
       type: 'DOUBLE PRECISION',
       notNull: false,
