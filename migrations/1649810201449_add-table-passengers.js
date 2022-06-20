@@ -23,7 +23,7 @@ exports.up = (pgm) => {
       type: 'INTEGER',
       notNull: true,
     },
-    role: {
+    role_id: {
       type: 'VARCHAR(15)',
       notNull: true,
     },

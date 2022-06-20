@@ -3,8 +3,9 @@
 exports.up = (pgm) => {
   pgm.createTable('roles', {
     id: {
-      type: 'INTEGER',
+      type: 'SMALLSERIAL',
       notNull: true,
+      primaryKey: true,
     },
     role: {
       type: 'VARCHAR(15)',
