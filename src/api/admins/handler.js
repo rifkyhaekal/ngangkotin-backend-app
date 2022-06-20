@@ -1,4 +1,4 @@
-const autoBind = require('auto-bind');
+import autoBind from 'auto-bind';
 
 class AdminsHandler {
   constructor(service, validator) {
@@ -8,7 +8,7 @@ class AdminsHandler {
     autoBind(this);
   }
 
-  async putAdminHandler({ payload }, h) {
+  async putAdminByEmailHandler({ payload }, h) {
     this._validator.validateAdminPayload(payload);
     const { email } = payload;
     await this._service.editAdminByEmail(email, payload);
@@ -19,3 +19,5 @@ class AdminsHandler {
     };
   }
 }
+
+export default AdminsHandler;

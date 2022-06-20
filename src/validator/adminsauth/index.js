@@ -1,5 +1,5 @@
-const { PostAdminsAuthPayloadSchema } = require('./schema');
-const InvariantError = require('../../exceptions/InvariantError');
+import { PostAdminsAuthPayloadSchema } from './schema.js';
+import InvariantError from '../../exceptions/InvariantError.js';
 
 const AdminsAuthValidator = {
   validatePostAdminAuthPayload: (payload) => {
@@ -22,4 +22,4 @@ const AdminsAuthValidator = {
   },
 };
 
-module.exports = AdminsAuthValidator;
+export default AdminsAuthValidator;

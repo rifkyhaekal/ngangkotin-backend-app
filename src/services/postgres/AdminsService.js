@@ -1,15 +1,18 @@
-const { Pool } = require('pg');
-const AuthenticationError = require('../../exceptions/AuthenticationError');
-const NotFoundError = require('../../exceptions/NotFoundError');
-const InvariantError = require('../../exceptions/InvariantError');
+import pg from 'pg';
+const { Pool } = pg;
+import AuthenticationError from '../../exceptions/AuthenticationError.js';
+import NotFoundError from '../../exceptions/NotFoundError.js';
+import { nanoid } from 'nanoid';
 
 class AdminsService {
   constructor() {
     this._pool = new Pool();
   }
 
-  async editAdminByEmail(email, { id, fullname, isVerified, profileUrl }) {
+  async editAdminByEmail(email, { fullname, isVerified, profileUrl }) {
+    const id = `admin-${nanoid(16)}`;
     const roleId = 1;
+
     const query = {
       text: 'UPDATE admins SET id = $1, fullname = $2, isVerified = $3, profileUrl = $4, role_id = $5 WHERE email = $6',
       values: [id, fullname, isVerified, profileUrl, roleId, email],
@@ -62,4 +65,4 @@ class AdminsService {
   }
 }
 
-module.exports = AdminsService;
+export default AdminsService;

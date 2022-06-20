@@ -1,4 +1,4 @@
-const Joi = require('Joi');
+import Joi from 'Joi';
 
 const PostAdminsAuthPayloadSchema = Joi.object({
   email: Joi.string()
@@ -14,7 +14,7 @@ const DeleteAdminsAuthPayloadSchema = Joi.object({
   refreshToken: Joi.string().required(),
 });
 
-module.exports = {
+export {
   PostAdminsAuthPayloadSchema,
   PutAdminsAuthPayloadSchema,
   DeleteAdminsAuthPayloadSchema,

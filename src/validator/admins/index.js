@@ -1,5 +1,5 @@
-const InvariantError = require('../../exceptions/InvariantError');
-const { AdminPayloadSchema } = require('./schema');
+import InvariantError from '../../exceptions/InvariantError.js';
+import { AdminPayloadSchema } from './schema.js';
 
 const AdminValidator = {
   validateAdminPayload: (payload) => {
@@ -11,4 +11,4 @@ const AdminValidator = {
   },
 };
 
-module.exports = AdminValidator;
+export default AdminValidator;

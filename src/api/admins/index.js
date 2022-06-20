@@ -1,7 +1,7 @@
-const AdminsHandler = require('./handler');
-const routes = require('./routes');
+import AdminsHandler from './handler.js';
+import routes from './routes.js';
 
-module.exports = {
+const admins = {
   name: 'admins',
   version: '1.0.0',
   register: async (server, { service, validator }) => {
@@ -9,3 +9,5 @@ module.exports = {
     server.route(routes(adminsHandler));
   },
 };
+
+export default admins;

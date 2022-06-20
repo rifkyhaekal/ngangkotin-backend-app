@@ -1,19 +1,32 @@
-const autoBind = require('auto-bind');
+import autoBind from 'auto-bind';
 
 class AdminsAuthHandler {
-  constructor(authenticationsService, adminsService, tokenManager, validator) {
+  constructor(
+    authenticationsService,
+    adminsService,
+    tokenManager,
+    authValidator,
+    dataValidator
+  ) {
     this._authenticationsService = authenticationsService;
     this._adminsService = adminsService;
     this._tokenManager = tokenManager;
-    this._validator = validator;
+    this._authValidator = authValidator;
+    this._dataValidator = dataValidator;
 
     autoBind(this);
   }
 
   async postAdminAuthHandler({ payload }, h) {
-    this._validator.validatePostAdminAuthPayload(payload);
-
     const { email } = payload;
+    this._authValidator.validatePostAdminAuthPayload(email);
+
+    const { fullname, isVerified, profileUrl } = paylaod;
+
+    const adminData = { fullname, isVerified, profileUrl };
+
+    this._dataValidator.validateAdminPayload(adminData);
+
     const { id, roleId } = await this._adminsService.verifyAdminCredential(
       email
     );
@@ -67,4 +80,4 @@ class AdminsAuthHandler {
   }
 }
 
-module.exports = AdminsAuthHandler;
+export default AdminsAuthHandler;

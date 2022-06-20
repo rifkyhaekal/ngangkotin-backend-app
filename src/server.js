@@ -1,19 +1,20 @@
 // mengimpor dotenv dan menjalankan konfigurasinya
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
-const Hapi = require('@hapi/hapi');
-const Jwt = require('@hapi/jwt');
+import Hapi from '@hapi/hapi';
+import Jwt from '@hapi/jwt';
 
 // admins
-const admins = require('./api/admins');
-const AdminsService = require('./services/postgres/AdminsService');
-const AdminsValidator = require('./validator/admins');
+import admins from './api/admins/index.js';
+import AdminsService from './services/postgres/AdminsService.js';
+import AdminsValidator from './validator/admins/index.js';
 
 // adminsauth
-const adminsAuth = require('./api/adminsauth');
-const AuthenticationsService = require('./services/postgres/AuthenticationsService');
-const TokenManager = require('./tokenize/TokenManager');
-const AdminsAuthValidator = require('./validator/adminsauth');
+import adminsAuth from './api/adminsauth/index.js';
+import AuthenticationsService from './services/postgres/AuthenticationsService.js';
+import TokenManager from './tokenize/TokenManager.js';
+import AdminsAuthValidator from './validator/adminsauth/index.js';
 
 const init = async () => {
   const adminsService = new AdminsService();
