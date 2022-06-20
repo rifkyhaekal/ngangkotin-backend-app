@@ -26,17 +26,24 @@ class AdminsService {
 
   async verifyAdminCredential(emailChecked) {
     const query = {
-      text: 'SELECT email FROM admins WHERE email = $1',
+      text: 'SELECT email, id, role_id FROM admins WHERE email = $1',
       values: [emailChecked],
     };
 
-    const emailRegistered = await this._pool.query(query);
+    const result = await this._pool.query(query);
 
-    if (!emailRegistered.rows) {
+    if (!result.rows) {
       throw new AuthenticationError('Kredensial yang diberikan salah!');
     }
 
-    return emailRegistered;
+    const { id, role_id: roleId } = result.rows[0];
+
+    const admin = {
+      id,
+      roleId,
+    };
+
+    return admin;
   }
 
   async getAdminById(adminId) {

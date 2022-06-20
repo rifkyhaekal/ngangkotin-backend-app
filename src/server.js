@@ -9,8 +9,15 @@ const admins = require('./api/admins');
 const AdminsService = require('./services/postgres/AdminsService');
 const AdminsValidator = require('./validator/admins');
 
+// adminsauth
+const adminsAuth = require('./api/adminsauth');
+const AuthenticationsService = require('./services/postgres/AuthenticationsService');
+const TokenManager = require('./tokenize/TokenManager');
+const AdminsAuthValidator = require('./validator/adminsauth');
+
 const init = async () => {
   const adminsService = new AdminsService();
+  const authenticationsService = new AuthenticationsService();
   const server = Hapi.server({
     port: process.env.PORT,
     host: process.env.HOST,
@@ -39,8 +46,9 @@ const init = async () => {
     },
     validate: (artifacts) => ({
       isValid: true,
-      credential: {
+      credentials: {
         id: artifacts.decoded.payload.id,
+        roleId: artifacts.decoded.payload.roleId,
       },
     }),
   });
@@ -51,6 +59,15 @@ const init = async () => {
       options: {
         service: adminsService,
         validator: AdminsValidator,
+      },
+    },
+    {
+      plugin: adminsAuth,
+      options: {
+        authenticationsService,
+        adminsService,
+        tokenManager: TokenManager,
+        validator: AdminsAuthValidator,
       },
     },
   ]);
