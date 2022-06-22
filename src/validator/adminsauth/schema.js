@@ -1,9 +1,7 @@
 import Joi from 'Joi';
 
 const PostAdminsAuthPayloadSchema = Joi.object({
-  email: Joi.string()
-    .email({ tlds: { allow: ['com'] } })
-    .required(),
+  email: Joi.string().email().required(),
 });
 
 const PutAdminsAuthPayloadSchema = Joi.object({

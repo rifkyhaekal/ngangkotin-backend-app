@@ -19,17 +19,18 @@ class AdminsAuthHandler {
 
   async postAdminAuthHandler({ payload }, h) {
     const { email } = payload;
-    this._authValidator.validatePostAdminAuthPayload(email);
+    this._authValidator.validatePostAdminAuthPayload({ email });
 
-    const { fullname, isVerified, profileUrl } = paylaod;
-
-    const adminData = { fullname, isVerified, profileUrl };
-
+    const { fullname, isVerified, gmailId, profileUrl } = payload;
+    const adminData = { fullname, isVerified, gmailId, profileUrl };
     this._dataValidator.validateAdminPayload(adminData);
 
-    const { id, roleId } = await this._adminsService.verifyAdminCredential(
+    const verifiedEmail = await this._adminsService.verifyAdminCredential(
       email
     );
+
+    const { gmail_id: id, role_id: roleId } =
+      await this._adminsService.editAdminByEmail(verifiedEmail, adminData);
 
     const accessToken = this._tokenManager.generateAccessToken({ id, roleId });
     const refreshToken = this._tokenManager.generateRefreshToken({

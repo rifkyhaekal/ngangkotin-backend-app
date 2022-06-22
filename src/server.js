@@ -16,6 +16,10 @@ import AuthenticationsService from './services/postgres/AuthenticationsService.j
 import TokenManager from './tokenize/TokenManager.js';
 import AdminsAuthValidator from './validator/adminsauth/index.js';
 
+// exceptions
+import ClientError from './exceptions/ClientError.js';
+import InternalServerError from './exceptions/InternalServerError.js';
+
 const init = async () => {
   const adminsService = new AdminsService();
   const authenticationsService = new AuthenticationsService();
@@ -68,7 +72,8 @@ const init = async () => {
         authenticationsService,
         adminsService,
         tokenManager: TokenManager,
-        validator: AdminsAuthValidator,
+        authValidator: AdminsAuthValidator,
+        dataValidator: AdminsValidator,
       },
     },
   ]);

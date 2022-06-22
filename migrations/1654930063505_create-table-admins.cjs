@@ -2,18 +2,13 @@
 
 exports.up = (pgm) => {
   pgm.createTable('admins', {
-    id: {
-      type: 'VARCHAR(50)',
-      primaryKey: true,
-    },
     email: {
       type: 'VARCHAR(150)',
-      unique: true,
-      notNull: false,
+      primaryKey: true,
     },
     fullname: {
       type: 'TEXT',
-      notNull: true,
+      notNull: false,
     },
     is_verified: {
       type: 'BOOLEAN',
@@ -23,9 +18,13 @@ exports.up = (pgm) => {
       type: 'TEXT',
       notNull: false,
     },
+    gmail_id: {
+      type: 'VARCHAR(50)',
+      notNull: false,
+    },
     role_id: {
-      type: 'VARCHAR(15)',
-      notNull: true,
+      type: 'INTEGER',
+      notNull: false,
     },
   });
 };
